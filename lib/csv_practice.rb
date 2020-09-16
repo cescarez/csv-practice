@@ -21,9 +21,6 @@ def total_medals_per_team(olympic_data)
     end
   end
 
-  # #sort is unnecessary
-  # all_medals.sort_by! { |medal_info| medal_info.keys.first  }
-
   team_medals = {}
 
   all_medals.each do |medal_info|
@@ -40,4 +37,9 @@ def total_medals_per_team(olympic_data)
 end
 
 def get_all_gold_medalists(olympic_data)
+  gold_medalists = olympic_data.select do |athlete|
+    athlete[REQUIRED_OLYMPIAN_FIELDS[-1]] == "Gold"
+  end
+
+  return gold_medalists
 end
