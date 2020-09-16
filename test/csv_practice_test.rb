@@ -120,8 +120,7 @@ describe "CSV and Enumerables Exercise" do
       expect(all_gold_medalists.length).must_equal 2344
     end
   end
-
-  describe 'team with most medals' do
+ describe 'team with most medals' do
     it 'returns the correct size hash' do
       #Arrange
       data = get_all_olympic_athletes(OLYMPIC_DATA_FILENAME)
