@@ -121,4 +121,42 @@ describe "CSV and Enumerables Exercise" do
     end
   end
 
+  describe 'team with most medals' do
+    it 'returns the correct size hash' do
+      #Arrange
+      data = get_all_olympic_athletes(OLYMPIC_DATA_FILENAME)
+      medal_counts = total_medals_per_team(data)
+
+      # Act
+      most_medals = team_with_most_medals(medal_counts)
+
+      # Assert
+      expect(most_medals.length).must_equal 2
+    end
+
+    it 'returns the correct data type (hash) with data for the team with the highest number of medals' do
+      #Arrange
+      data = get_all_olympic_athletes(OLYMPIC_DATA_FILENAME)
+      medal_counts = total_medals_per_team(data)
+
+      # Act
+      most_medals = team_with_most_medals(medal_counts)
+
+      # Assert
+      expect(most_medals.length).must_be_kind_of Hash
+    end
+
+    it 'returns a hash corresponding to the team (country) with the highest number of medals' do
+      #Arrange
+      data = get_all_olympic_athletes(OLYMPIC_DATA_FILENAME)
+      medal_counts = total_medals_per_team(data)
+
+      # Act
+      most_medals = team_with_most_medals(medal_counts)
+
+      # Assert
+      expect(most_medals.length).must_equal {
+    end
+  end
+
 end
