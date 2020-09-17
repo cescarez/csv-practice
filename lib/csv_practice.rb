@@ -12,24 +12,18 @@ def get_all_olympic_athletes(filename)
 end
 
 def total_medals_per_team(olympic_data)
-  all_medals = []
-  olympic_data.each do |athlete|
-    if athlete[REQUIRED_OLYMPIAN_FIELDS[-1]] != "NA"
-      all_medals << {athlete[REQUIRED_OLYMPIAN_FIELDS[3]] => athlete[REQUIRED_OLYMPIAN_FIELDS[-1]]}
-    else
-      next
-    end
+  olympic_data.filter! { |athlete| athlete[REQUIRED_OLYMPIAN_FIELDS[-1]] != "NA" }
+  all_medals = olympic_data.map do |athlete|
+    athlete[REQUIRED_OLYMPIAN_FIELDS[-1]] != "NA"
+      {athlete[REQUIRED_OLYMPIAN_FIELDS[3]] => athlete[REQUIRED_OLYMPIAN_FIELDS[-1]]}
   end
 
   team_medals = {}
 
+
   all_medals.each do |medal_info|
     medal_info.each do |team, medal|
-      if team_medals.member?(team)
-        team_medals[team] += 1
-      else
-        team_medals[team] = 1
-      end
+      team_medals.member?(team) ? team_medals[team] += 1 : team_medals[team] = 1
     end
   end
 
