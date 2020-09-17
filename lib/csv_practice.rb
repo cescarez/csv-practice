@@ -20,7 +20,6 @@ def total_medals_per_team(olympic_data)
 
   team_medals = {}
 
-
   all_medals.each do |medal_info|
     medal_info.each do |team, medal|
       team_medals.member?(team) ? team_medals[team] += 1 : team_medals[team] = 1
@@ -31,7 +30,7 @@ def total_medals_per_team(olympic_data)
 end
 
 def get_all_gold_medalists(olympic_data)
-  gold_medalists = olympic_data.select do |athlete|
+  gold_medalists = olympic_data.filter do |athlete|
     athlete[REQUIRED_OLYMPIAN_FIELDS[-1]] == "Gold"
   end
 
