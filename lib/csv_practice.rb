@@ -20,6 +20,7 @@ def total_medals_per_team(olympic_data)
 
   team_medals = {}
 
+
   all_medals.each do |medal_info|
     medal_info.each do |team, medal|
       team_medals.member?(team) ? team_medals[team] += 1 : team_medals[team] = 1
