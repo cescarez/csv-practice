@@ -45,7 +45,8 @@ def get_all_gold_medalists(olympic_data)
 end
 
 def team_with_most_medals(medal_totals)
-  return medal_totals.max { |team| [team] }
+  top_medals = medal_totals.max_by { |team, count| count }
+  return {top_medals[0] => top_medals[1]}
 end
 
 def athlete_height_in_inches(olympic_data)
