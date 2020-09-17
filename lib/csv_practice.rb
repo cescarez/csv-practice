@@ -44,10 +44,12 @@ def team_with_most_medals(medal_totals)
 end
 
 def athlete_height_in_inches(olympic_data)
-  height_in_inches = olympic_data.dup
+  height_in_inches = olympic_data.select { |athlete| athlete[REQUIRED_OLYMPIAN_FIELDS[2]] != "NA" }
   height_in_inches.each do |athlete|
-    if athlete[REQUIRED_OLYMPIAN_FIELDS[2]] != "NA"
-      athlete[REQUIRED_OLYMPIAN_FIELDS[2]] = athlete[REQUIRED_OLYMPIAN_FIELDS[2]].to_f / 2.54
+    athlete.transform_values! do |field|
+      if field == athlete[REQUIRED_OLYMPIAN_FIELDS[2]]
+        athlete[REQUIRED_OLYMPIAN_FIELDS[2]].to_f / 2.54
+      end
     end
   end
   return height_in_inches
