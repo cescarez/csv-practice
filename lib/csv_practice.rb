@@ -11,15 +11,19 @@ def get_all_olympic_athletes(filename)
 end
 
 def total_medals_per_team(olympic_data)
-  olympic_data.filter! { |athlete| athlete[REQUIRED_OLYMPIAN_FIELDS[-1]] != "NA" }
+  # OPTION 1: filter and map in the same line, but not super readable
+  # all_medals = olympic_data.filter { |athlete| athlete[REQUIRED_OLYMPIAN_FIELDS[-1]] != "NA" }.map do |athlete|
+  #   {athlete[REQUIRED_OLYMPIAN_FIELDS[3]] => athlete[REQUIRED_OLYMPIAN_FIELDS[-1]]}
+  # end
+
+  # OPTION 2: map and filter with if statement, but necessitates .compact due to creation of nil entries when medal == "NA"
   all_medals = olympic_data.map do |athlete|
-    if athlete[REQUIRED_OLYMPIAN_FIELDS[-1]] != "NA"
+    if (athlete[REQUIRED_OLYMPIAN_FIELDS[-1]] !="NA")
       {athlete[REQUIRED_OLYMPIAN_FIELDS[3]] => athlete[REQUIRED_OLYMPIAN_FIELDS[-1]]}
     end
-  end
-  
-  team_medals = {}
+  end.compact
 
+  team_medals = {}
 
   all_medals.each do |medal_info|
     medal_info.each do |team, medal|
@@ -44,7 +48,7 @@ def team_with_most_medals(medal_totals)
 end
 
 def athlete_height_in_inches(olympic_data)
-  height_in_inches = olympic_data.select { |athlete| athlete[REQUIRED_OLYMPIAN_FIELDS[2]] != "NA" }
+  height_in_inches = olympic_data.filter { |athlete| athlete[REQUIRED_OLYMPIAN_FIELDS[2]] != "NA" }
   height_in_inches.each do |athlete|
     athlete.transform_values! do |field|
       if field == athlete[REQUIRED_OLYMPIAN_FIELDS[2]]
