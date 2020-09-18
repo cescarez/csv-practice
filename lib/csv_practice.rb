@@ -4,7 +4,7 @@ require 'awesome_print'
 
 
 def get_all_olympic_athletes(filename)
-  temp_athletes = CSV.read('data/athlete_events.csv', headers: true).map { |row| row.to_h }
+  temp_athletes = CSV.read(filename, headers: true).map { |row| row.to_h }
   athletes = temp_athletes.each do |athlete|
     athlete.filter! { |key| REQUIRED_OLYMPIAN_FIELDS.include?(key) }
   end
