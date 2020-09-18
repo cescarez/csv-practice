@@ -121,4 +121,69 @@ describe "CSV and Enumerables Exercise" do
     end
   end
 
+ describe 'team with most medals' do
+
+    it 'returns the correct data type (hash) with data for the team with the highest number of medals' do
+      #Arrange
+      data = get_all_olympic_athletes(OLYMPIC_DATA_FILENAME)
+      medal_counts = total_medals_per_team(data)
+
+      # Act
+      most_medals = team_with_most_medals(medal_counts)
+
+      # Assert
+      expect(most_medals).must_be_kind_of Hash
+    end
+
+    it 'returns the correct size hash' do
+      #Arrange
+      data = get_all_olympic_athletes(OLYMPIC_DATA_FILENAME)
+      medal_counts = total_medals_per_team(data)
+
+      # Act
+      most_medals = team_with_most_medals(medal_counts)
+
+      # Assert
+      expect(most_medals.flatten.length).must_equal 2
+    end
+
+    it 'returns a hash corresponding to the team (country) with the highest number of medals' do
+      #Arrange
+      data = get_all_olympic_athletes(OLYMPIC_DATA_FILENAME)
+      medal_counts = total_medals_per_team(data)
+      highest_medal_count = medal_counts.max_by { |key, value| value }
+      # Act
+      most_medals = team_with_most_medals(medal_counts)
+
+      # Assert
+      expect(most_medals.keys.first).must_equal "United States"
+    end
+  end
+
+  describe 'athlete_height_in_inches' do
+
+    it 'check returned type is an array' do
+      #Arrange
+      data = get_all_olympic_athletes(OLYMPIC_DATA_FILENAME)
+
+      # Act
+      heights = athlete_height_in_inches(data)
+
+      # Assert
+      expect(heights).must_be_kind_of Array
+    end
+
+    it 'check if cm->in calculation for first and last athletes are correct' do
+      #Arrange
+      data = get_all_olympic_athletes(OLYMPIC_DATA_FILENAME)
+
+      # Act
+      heights = athlete_height_in_inches(data)
+
+      # Assert
+      expect(heights[0][REQUIRED_OLYMPIAN_FIELDS[2]]).must_be_close_to 64.1732283464567, 0.01
+      expect(heights[-1][REQUIRED_OLYMPIAN_FIELDS[2]]).must_be_close_to 67.32283464566929, 0.01
+    end
+  end
+
 end
